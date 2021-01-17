@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 import argparse
 from numfluxes import *
 
+#Coefficients of 3-stage SSPRK
+ark = [0.0, 3.0/4.0, 1.0/3.0]
+
 ul, ur = 1.2, 0.4
 s      = 0.5*(ul + ur)
 
@@ -54,7 +57,7 @@ def solve(N, cfl, scheme, Tf):
         else:
             print("Unknown scheme: ", scheme)
             return
-        u[1:-1] -= lam * (f[2:-1] - f[1:-2])
+        u[1:-1] -= lam * (f[2:-1] - f[1:-2]) #This is the forward euler update
         t += dt; it += 1
         line1.set_ydata(u)
         line2.set_ydata(uexact(t,x))
